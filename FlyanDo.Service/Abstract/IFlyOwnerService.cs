@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FlyanDo.Entity;
 
-namespace FlyanDo.Repository.Abstract
+namespace FlyanDo.Service.Abstract
 {
-    public interface IFlyOwnerRepository
+    public interface IFlyOwnerService
     {
         IQueryable<FlyOwner> GetAll();
         FlyOwner GetById(int id);

@@ -27,7 +27,13 @@ namespace FlyanDo.Repository
             return _context.FlyOwners.SingleOrDefault(w => w.Id == id);
         }
 
-        public void Save(FlyOwner owner)
+        public void Insert(FlyOwner owner)
+        {
+            _context.FlyOwners.Add(owner);
+            _context.SaveChanges();
+        }
+
+        public void Update(FlyOwner owner)
         {
             if (owner.Id > 0)
             {
@@ -37,10 +43,6 @@ namespace FlyanDo.Repository
                 {
                     _context.Entry(ownerToUpdate).CurrentValues.SetValues(owner);
                 }
-            }
-            else
-            {
-                _context.FlyOwners.Add(owner);
             }
 
             _context.SaveChanges();

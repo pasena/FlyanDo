@@ -12,7 +12,6 @@ namespace FlyanDo.Tests.Service
     [TestClass]
     public class FlyServiceTest
     {
-
         [TestMethod]
         public void CanGetAll()
         {
@@ -132,12 +131,40 @@ namespace FlyanDo.Tests.Service
             catch (ArgumentException argex)
             {
                 Assert.AreEqual(argex.Message, "Fly is required!");
-                flyRepository.Verify(v => v.Insert(It.IsAny<Fly>()), Times.Never());
+                flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
         }
 
         [TestMethod]
-        public void CanNotUpdateWithAbsentFly()
+        public void CanNotUpdateWithoutDescription()
+        {
+            var flyRepository = new Mock<IFlyRepository>();
+
+            flyRepository.Setup(s => s.GetById(1)).Returns(new Fly { Id = 1, DateOfFly = DateTime.Now, Description="First Fly", Owner = new FlyOwner { Id = 1, Name = "Owner 1" } });
+
+            var flyService = new FlyService(flyRepository.Object);
+
+            try
+            {
+                var fly = flyService.GetById(1);
+
+                fly.Description = string.Empty;
+
+                flyService.Update(fly);
+
+                Assert.Fail("Validation not implemented!");
+            }
+            catch (ArgumentException argex)
+            {
+                Assert.AreEqual(argex.Message, "Description is required!");
+                flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
+            }
+
+            flyRepository.Verify(v => v.GetById(It.IsAny<int>()), Times.AtLeastOnce());
+        }
+
+        [TestMethod]
+        public void CanNotUpdateAbsentFly()
         {
             var flyRepository = new Mock<IFlyRepository>();
 
@@ -154,7 +181,7 @@ namespace FlyanDo.Tests.Service
             catch (ArgumentException argex)
             {
                 Assert.AreEqual(argex.Message, "Fly not exists!");
-                flyRepository.Verify(v => v.Insert(It.IsAny<Fly>()), Times.Never());
+                flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
 
             flyRepository.Verify(v => v.GetById(It.IsAny<int>()), Times.Once());
@@ -174,7 +201,7 @@ namespace FlyanDo.Tests.Service
             catch (ArgumentException argex)
             {
                 Assert.AreEqual(argex.Message, "Fly not exists!");
-                flyRepository.Verify(v => v.Insert(It.IsAny<Fly>()), Times.Never());
+                flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
 
             flyRepository.Verify(v => v.GetById(It.IsAny<int>()), Times.Once());
@@ -186,15 +213,30 @@ namespace FlyanDo.Tests.Service
             var flyRepository = new Mock<IFlyRepository>();
 
             flyRepository.Setup(s => s.GetById(It.IsAny<int>())).Returns(
-                new Fly { Id = 1, DateOfFly = DateTime.Now, Owner = new FlyOwner { Id = 1, Name = "Owner 1" } });
+                new Fly { Id = 1, DateOfFly = DateTime.Now, Description="First Fly" , Owner = new FlyOwner { Id = 1, Name = "Owner 1" } });
 
             var flyService = new FlyService(flyRepository.Object);
 
-            var fly = new Fly { Id = 1, DateOfFly = DateTime.Now, Owner = new FlyOwner { Id = 2, Name = "Update Owner 1" } };
+            var fly = new Fly { Id = 1, DateOfFly = DateTime.Now,  Description="First Fly Update", Owner = new FlyOwner { Id = 2, Name = "Update Owner 1" } };
 
             flyService.Update(fly);
 
             flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Once());
+        }
+
+        [TestMethod]
+        public void CanDelete()
+        {
+            var flyRepository = new Mock<IFlyRepository>();
+
+            flyRepository.Setup(s => s.GetById(It.IsAny<int>())).Returns(
+                new Fly { Id = 1, DateOfFly = DateTime.Now, Description = "First Fly", Owner = new FlyOwner { Id = 1, Name = "Owner 1" } });
+
+            var flyService = new FlyService(flyRepository.Object);
+
+            flyService.Delete(1);
+
+            flyRepository.Verify(v => v.Delete(It.IsAny<int>()), Times.Once());
         }
     }
 }

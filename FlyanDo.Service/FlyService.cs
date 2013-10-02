@@ -51,7 +51,11 @@ namespace FlyanDo.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var scope = new TransactionScope())
+            {
+                _flyRepository.Delete(id);
+                scope.Complete();
+            }
         }
         
         private void ValidadeInsert(Fly fly)
@@ -74,6 +78,8 @@ namespace FlyanDo.Service
             if(_flyRepository.GetById(fly.Id) == null)
                 throw new ArgumentException("Fly not exists!");
 
+            if(string.IsNullOrWhiteSpace(fly.Description))
+                throw new ArgumentException("Description is required!");
         }
     }
 }

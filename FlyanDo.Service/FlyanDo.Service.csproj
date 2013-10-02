@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IFlyOwnerService.cs" />
     <Compile Include="Abstract\IFlyService.cs" />
+    <Compile Include="FlyOwnerService.cs" />
     <Compile Include="FlyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
