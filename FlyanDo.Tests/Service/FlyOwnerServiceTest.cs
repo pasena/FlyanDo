@@ -60,7 +60,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Owner is required!");
+                Assert.AreEqual("Owner is required!", argex.Message);
                 ownerRepository.Verify(v => v.Insert(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -79,7 +79,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Name is required!");
+                Assert.AreEqual("Name is required!", argex.Message);
                 ownerRepository.Verify(v => v.Insert(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -98,7 +98,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Nick is required!");
+                Assert.AreEqual("Nick is required!", argex.Message);
                 ownerRepository.Verify(v => v.Insert(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -127,7 +127,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Owner is required!");
+                Assert.AreEqual("Owner is required!", argex.Message);
                 ownerRepository.Verify(v => v.Update(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -146,7 +146,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Name is required!");
+                Assert.AreEqual("Name is required!", argex.Message);
                 ownerRepository.Verify(v => v.Update(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -165,7 +165,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Nick is required!");
+                Assert.AreEqual("Nick is required!", argex.Message);
                 ownerRepository.Verify(v => v.Update(It.IsAny<FlyOwner>()), Times.Never());
             }
         }
@@ -188,7 +188,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Owner not exists!");
+                Assert.AreEqual("Owner not exists!", argex.Message);
                 ownerRepository.Verify(v => v.Update(It.IsAny<FlyOwner>()), Times.Never());
             }
         }

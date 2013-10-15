@@ -123,6 +123,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Service\FlyServiceTest.cs" />
     <Compile Include="Service\FlyOwnerServiceTest.cs" />
+    <Compile Include="Service\FlyCommentTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

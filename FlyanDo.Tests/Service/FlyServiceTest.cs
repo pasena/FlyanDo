@@ -79,7 +79,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Description is required!");
+                Assert.AreEqual("Description is required!", argex.Message);
                 flyRepository.Verify(v => v.Insert(It.IsAny<Fly>()), Times.Never());
             }
         }
@@ -99,7 +99,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Owner is required!");
+                Assert.AreEqual("Owner is required!", argex.Message);
                 flyRepository.Verify(v => v.Insert(It.IsAny<Fly>()), Times.Never());
             }
         }
@@ -130,7 +130,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Fly is required!");
+                Assert.AreEqual("Fly is required!", argex.Message);
                 flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
         }
@@ -156,7 +156,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Description is required!");
+                Assert.AreEqual("Description is required!", argex.Message);
                 flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
 
@@ -180,7 +180,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Fly not exists!");
+                Assert.AreEqual("Fly not exists!", argex.Message);
                 flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
 
@@ -200,7 +200,7 @@ namespace FlyanDo.Tests.Service
             }
             catch (ArgumentException argex)
             {
-                Assert.AreEqual(argex.Message, "Fly not exists!");
+                Assert.AreEqual("Fly not exists!", argex.Message);
                 flyRepository.Verify(v => v.Update(It.IsAny<Fly>()), Times.Never());
             }
 

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FlyanDo.Entity;
 using FlyanDo.Repository.Abstract;
-using FlyanDo.Entity;
 
 namespace FlyanDo.Repository
 {
@@ -28,7 +23,13 @@ namespace FlyanDo.Repository
             return _context.FlyComments.SingleOrDefault(w => w.Id == id);
         }
 
-        public void Save(FlyComment comment)
+        public void Insert(FlyComment comment)
+        {
+            _context.FlyComments.Add(comment);
+            _context.SaveChanges();
+        }
+
+        public void Update(FlyComment comment)
         {
             if (comment.Id > 0)
             {
@@ -38,10 +39,6 @@ namespace FlyanDo.Repository
                 {
                     _context.Entry(commentToUpdate).CurrentValues.SetValues(comment);
                 }
-            }
-            else
-            {
-                _context.FlyComments.Add(comment);
             }
 
             _context.SaveChanges();

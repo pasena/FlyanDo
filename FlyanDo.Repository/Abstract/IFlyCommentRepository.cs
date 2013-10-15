@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FlyanDo.Entity;
 
 namespace FlyanDo.Repository.Abstract
@@ -12,7 +8,8 @@ namespace FlyanDo.Repository.Abstract
         IQueryable<FlyComment> GetAll();
         FlyComment GetById(int id);
 
-        void Save(FlyComment comment);
+        void Insert(FlyComment comment);
+        void Update(FlyComment comment);
         void Delete(int id);
     }
 }
